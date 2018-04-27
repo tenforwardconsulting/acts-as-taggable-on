@@ -194,7 +194,8 @@ module ActsAsTaggableOn::Taggable
       value = new_list.is_a?(Array) ? ActsAsTaggableOn::TagList.new(new_list) : new_list
       attrib = "#{context.to_s.singularize}_list"
 
-      if changed_attributes.include?(attrib)
+      @changed_attributes ||= {}
+      if @changed_attributes.include?(attrib)
         # The attribute already has an unsaved change.
         old = changed_attributes[attrib]
         @changed_attributes.delete(attrib) if old.to_s == value.to_s
